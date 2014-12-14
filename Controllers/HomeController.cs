@@ -16,14 +16,14 @@ namespace ColourDataRP.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "彩数（上海）商务咨询有限公司";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "联系方式";
 
             return View();
         }
