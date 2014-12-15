@@ -27,6 +27,112 @@ namespace ColourDataRP.Controllers
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
+        {
+            var Db = new ApplicationDbContext();
+            var users = Db.Users;
+            var model = new List<EditUserViewModel>();
+            foreach (var user in users)
+            {
+                var u = new EditUserViewModel(user);
+                model.Add(u);
+            }
+            return View(model);
+        }
+
+        //
+        // GEG: /Account/Edit
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(string id, ManageMessageId? Message = null)
+        {
+            var Db = new ApplicationDbContext();
+            var user = Db.Users.First(u => u.UserName == id);
+            var model = new EditUserViewModel(user);
+            ViewBag.MessageId = Message;
+            return View(model);
+        }
+        //
+        // POST: /Account/Edit
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Db = new ApplicationDbContext();
+                var user = Db.Users.First(u => u.UserName == model.UserName);
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                Db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                await Db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        //
+        // GEG: /Account/Delete
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete(string id = null)
+        {
+            var Db = new ApplicationDbContext();
+            var user = Db.Users.First(u => u.UserName == id);
+            var model = new EditUserViewModel(user);
+            return View(model);
+        }
+        //
+        // POST: /Account/Delete
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            var Db = new ApplicationDbContext();
+            var user = Db.Users.First(u => u.UserName == id);
+            Db.Users.Remove(user);
+            Db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GEG: /Account/UserRoles
+        [Authorize(Roles = "Admin")]
+        public ActionResult UserRoles(string id)
+        {
+            var Db = new ApplicationDbContext();
+            var user = Db.Users.First(u => u.UserName == id);
+            var model = new SelectUserRolesViewModel(user);
+            return View(model);
+        }
+
+        //
+        // POST: /Account/UserRoles
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserRoles(SelectUserRolesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var idManager = new IdentityManager();
+                var Db = new ApplicationDbContext();
+                var user = Db.Users.First(u => u.UserName == model.UserName);
+                idManager.ClearUserRoles(user.Id);
+                foreach (var role in model.Roles)
+                {
+                    if (role.Selected)
+                    {
+                        idManager.AddUserToRole(user.Id, role.RoleName);
+                    }
+                }
+                return RedirectToAction("index");
+            }
+            return View();
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -63,7 +169,8 @@ namespace ColourDataRP.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize(Roles="Admin")]
         public ActionResult Register()
         {
             return View();
@@ -72,13 +179,20 @@ namespace ColourDataRP.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize(Roles="Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser()
+                {
+                    UserName = model.UserName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -1,0 +1,48 @@
+﻿@model ColourDataRP.Models.SelectUserRolesViewModel
+@{
+    ViewBag.Title = "使用者角色";
+}
+
+<h2>使用者角色 @Html.DisplayFor(model => model.UserName)</h2>
+<hr />
+
+@using (Html.BeginForm("UserRoles", "Account", FormMethod.Post, new { encType = "multipart/form-data", name = "myform" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.UserName)
+            </div>
+        </div>
+
+        <h4>選擇要加入的角色</h4>
+        <br />
+        <hr />
+
+        <table>
+            <tr>
+                <th>
+                    勾選
+                </th>
+                <th>
+                    角色
+                </th>
+            </tr>
+            @for (int i = 0; i < this.Model.Roles.Count; i++ )
+            { 
+                @Html.EditorFor(model => model.Roles[i], "SelectRoleEditorViewModel")
+            }
+        </table>
+        <br />
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="存檔" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

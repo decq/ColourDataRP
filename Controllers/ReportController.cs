@@ -12,16 +12,10 @@ namespace ColourDataRP.Controllers
         // GET: /Report/
         public ActionResult Index()
         {
-            string viewName = ControllerContext.RouteData .GetRequiredString("action");
-ViewEngineResult result = ViewEngines.Engines.FindView(ControllerContext, viewName, null);
-if (null == result.View)
-{
-}
-result.ViewEngine.ReleaseView(ControllerContext, result.View);
-
             return View();
         }
 
+        [Authorize(Users="Jocundmo", Roles="Admin")]
         public ActionResult ShowReport()
         {
             return View();
