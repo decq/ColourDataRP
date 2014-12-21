@@ -1,0 +1,144 @@
+.login_wrap {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	background: #34506a url(../../img/pattern.png) repeat-y;
+}
+
+.login_box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	width: 600px;
+	padding: 20px;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
+.login_list {
+	float: left;
+	width: 300px;
+}
+
+.login_box li {
+	margin-bottom: 10px;
+}
+
+.login_box li:last-child {
+	margin-bottom: 0;
+}
+
+.login_list input[type="text"],
+.login_list input[type="password"] {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.login_list label:hover {
+	text-decoration: underline;
+}
+
+.login_list input[type="checkbox"] {
+	font-size: 0;
+}
+
+.login_list .text_blue {
+	padding-left: 3px;
+}
+
+.btn_login {
+	display: block;
+}
+
+.forget {
+	float: right;
+	line-height: 22px;
+}
+
+.forget:hover {
+	text-decoration: underline;
+}
+
+.logo_box {
+	position: absolute;
+	right: 65px;
+	margin: 30px 0 0 0;
+	width: 150px;
+	height: 96px;
+	overflow: hidden;
+	text-align: center;	
+}
+
+.logo_box img {
+	width: 100%;
+	animation: logo 2s ease-in;
+	-webkit-animation: logo 2s ease-in;
+	-moz-animation: logo 2s ease-in;
+}
+
+.logo_comment {
+	position: absolute;
+	bottom: -20px;
+	width: 100%;
+	animation: comment 1s ease-in-out 1s forwards;
+	-webkit-animation: comment 1s ease-in-out 1s forwards;
+	-moz-animation: comment 1s ease-in-out 1s forwards;
+}
+
+@keyframes logo {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes logo {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-moz-keyframes logo {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes comment {
+	0% {
+		opacity: 0;
+		bottom: -20px;
+	}
+	100% {
+		opacity: 1;
+		bottom: 0;
+	}
+}
+@-webkit-keyframes comment {
+	0% {
+		opacity: 0;
+		bottom: -20px;
+	}
+	100% {
+		opacity: 1;
+		bottom: 0;
+	}
+}
+@-moz-keyframes comment {
+	0% {
+		opacity: 0;
+		bottom: -20px;
+	}
+	100% {
+		opacity: 1;
+		bottom: 0;
+	}
+}

@@ -1,0 +1,19 @@
+.crumb {
+	padding: 10px 15px;
+	border-bottom: 1px solid #d5d4d0;
+}
+
+.crumb .crumb_item {
+	display: inline-block;
+	font-size: 12px;
+}
+
+.crumb .crumb_item.current {
+	color: #777;
+}
+
+.crumb .crumb_item + .crumb_item:before {
+	padding: 0 5px;
+	color: #ccc;
+	content: '/\00a0';
+}

@@ -1,0 +1,70 @@
+.basefix:after {
+	clear: both;
+}
+
+.basefix:before, .basefix:after {
+	content: " ";
+	display: table;
+}
+
+/*multi ellipsis*/
+.ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.multi_ellipsis2 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.multi_ellipsis3 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+/*inline-block fix*/
+.ib_container {
+	font-size: 0;
+	*word-spacing: -1px;
+}
+
+.ib {
+	display:inline-block; 
+	*display:inline; 
+	*zoom:1;
+	letter-spacing: normal;
+	word-spacing: normal;
+}
+
+input[type="text"],
+input[type="password"] {
+	padding: 10px;
+	border: 1px solid #d5d4d0;
+	border-radius: 3px;
+	background-color: #fff;
+}
+
+input[type="checkbox"] {
+	vertical-align: middle;
+}
+
+.input_error {
+	border: 1px solid #428bca !important;
+	box-shadow: 0 0 4px #428bca;
+}
+
+/*text*/
+.text_blue {
+	color: #428bca;
+}
+.text_light_gray {
+	color: #999;
+}
+.text_small {
+	font-size: 12px !important;
+}
+.
